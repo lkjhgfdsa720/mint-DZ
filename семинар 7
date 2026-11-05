@@ -1,0 +1,20 @@
+# Среднее Total day calls по всему датафрейму:
+python
+df['Total day calls'].mean()
+
+# Среднее Total day calls для штата KS:
+python
+df[df['State'] == 'KS']['Total day calls'].mean()
+
+# Среднее Total day calls по каждому штату:
+python
+state_mean_day = df.groupby('State', as_index=False)['Total day calls'].mean()
+
+# Штаты, где среднее Total day calls больше общего среднего (≈100.04):
+python
+overall_mean = df['Total day calls'].mean()
+state_mean_day_filtered = state_mean_day[state_mean_day['Total day calls'] > overall_mean].reset_index(drop=True)
+
+# Средние Total day calls и Total eve calls по штатам:
+python
+state_mean_calls = df.groupby('State', as_index=False)[['Total day calls', 'Total eve calls']].mean()
